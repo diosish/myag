@@ -58,10 +58,9 @@ class TokenUsage(BaseModel):
     total_tokens: int = 0
     cost_usd: float = 0.0
     
-    def __init__(self, **data):
-        super().__init__(**data)
-        if 'total_tokens' not in data:
-            self.total_tokens = self.input_tokens + self.output_tokens
+    def model_post_init(self, __context):
+        """Calculate total_tokens if not provided."""
+        self.total_tokens = self.input_tokens + self.output_tokens
     
     def add(self, other: 'TokenUsage') -> 'TokenUsage':
         """Add another TokenUsage to this one."""

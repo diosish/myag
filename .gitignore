@@ -21,12 +21,33 @@ wheels/
 .installed.cfg
 *.egg
 
-# Logs
-*.log
-logs/
+# Testing
+.coverage
+htmlcov/
+.coverage.*
+.cache
+.pytest_cache/
+.hypothesis/
 
 # Environment
 .env
 .env.local
 .env.*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.tmp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Data cache
+data/cache/
 ```

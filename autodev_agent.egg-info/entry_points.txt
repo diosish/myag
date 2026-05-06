@@ -1,0 +1,2 @@
+[console_scripts]
+adev = autodev_agent.cli:main

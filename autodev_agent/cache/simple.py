@@ -86,6 +86,9 @@ class SimpleCache:
             except Exception as e:
                 print(f"Warning: Could not load cache index: {e}")
                 self._index = {}
+        else:
+            # Create empty index file
+            self._save_index()
         
         # Clean up expired entries on startup
         self.cleanup()

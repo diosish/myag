@@ -100,6 +100,7 @@ class LoggingConfig(BaseModel):
     file: str = "./logs/adev.log"
     format: str = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     log_sensitive: bool = False
+    mask_secrets: bool = True
 
 
 def expand_env_variables(value: str) -> str:
@@ -107,14 +108,24 @@ def expand_env_variables(value: str) -> str:
     if not isinstance(value, str):
         return value
     
-    # Match ${VAR_NAME} pattern
+    # Match ${VAR_NAME:-default} pattern (with default value)
+    pattern_with_default = r'\$\{([^}:]+):-([^}]*)\}'
+    
+    def replace_with_default(match):
+        env_var = match.group(1)
+        default_value = match.group(2)
+        return os.environ.get(env_var, default_value)
+    
+    result = re.sub(pattern_with_default, replace_with_default, value)
+    
+    # Match ${VAR_NAME} pattern (without default)
     pattern = r'\$\{([^}]+)\}'
     
     def replace(match):
         env_var = match.group(1)
         return os.environ.get(env_var, match.group(0))
     
-    result = re.sub(pattern, replace, value)
+    result = re.sub(pattern, replace, result)
     
     # Also match $VAR_NAME (without braces)
     pattern_simple = r'\$([A-Za-z_][A-Za-z0-9_]*)'

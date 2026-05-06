@@ -1,0 +1,250 @@
+# Skills Library for AutoDevAgent
+# Each skill defines capabilities, tools, and prompts for agents
+
+python:
+  name: "Python Development"
+  description: "Expert Python programming skills"
+  file_patterns:
+    - "*.py"
+    - "*.pyi"
+    - "requirements.txt"
+    - "setup.py"
+    - "pyproject.toml"
+  tools:
+    - "python_interpreter"
+    - "pip"
+    - "pytest"
+    - "black"
+    - "mypy"
+  system_prompt_template: |
+    You are an expert Python developer with deep knowledge of:
+    - Modern Python (3.11+) features and best practices
+    - Type hints and static analysis
+    - Testing with pytest
+    - Code formatting with black/ruff
+    - Package management with pip/poetry
+    
+    When writing code:
+    1. Always include type hints
+    2. Write docstrings for public functions/classes
+    3. Handle errors appropriately
+    4. Follow PEP 8 style guidelines
+    5. Include tests when possible
+
+javascript:
+  name: "JavaScript/TypeScript Development"
+  description: "Modern JavaScript and TypeScript programming"
+  file_patterns:
+    - "*.js"
+    - "*.ts"
+    - "*.jsx"
+    - "*.tsx"
+    - "package.json"
+    - "tsconfig.json"
+  tools:
+    - "node"
+    - "npm"
+    - "yarn"
+    - "jest"
+    - "eslint"
+    - "prettier"
+  system_prompt_template: |
+    You are an expert JavaScript/TypeScript developer with expertise in:
+    - Modern ES2022+ features
+    - TypeScript type system
+    - Node.js and browser environments
+    - Testing with Jest/Vitest
+    - Code quality with ESLint
+    
+    When writing code:
+    1. Prefer TypeScript over JavaScript when possible
+    2. Use strict mode and strict null checks
+    3. Write comprehensive type definitions
+    4. Include unit tests
+    5. Follow consistent code style
+
+react:
+  name: "React Development"
+  description: "React.js frontend development with modern patterns"
+  file_patterns:
+    - "*.jsx"
+    - "*.tsx"
+    - "*.css"
+    - "*.module.css"
+  tools:
+    - "vite"
+    - "webpack"
+    - "jest"
+    - "react-testing-library"
+  system_prompt_template: |
+    You are an expert React developer specializing in:
+    - React 18+ with hooks
+    - Functional components and custom hooks
+    - State management (Zustand, Redux Toolkit)
+    - Server components and Next.js
+    - Performance optimization
+    
+    When writing React code:
+    1. Use functional components with hooks
+    2. Implement proper error boundaries
+    3. Optimize re-renders with useMemo/useCallback
+    4. Write accessible components
+    5. Include tests with React Testing Library
+
+pytest:
+  name: "Pytest Testing"
+  description: "Writing and running Python tests with pytest"
+  file_patterns:
+    - "test_*.py"
+    - "*_test.py"
+    - "conftest.py"
+  tools:
+    - "pytest"
+    - "pytest-cov"
+    - "pytest-asyncio"
+    - "pytest-mock"
+  system_prompt_template: |
+    You are an expert QA engineer specializing in pytest:
+    - Writing comprehensive test suites
+    - Parametrized tests and fixtures
+    - Async testing with pytest-asyncio
+    - Mocking with pytest-mock
+    - Coverage analysis
+    
+    When writing tests:
+    1. Test both happy path and edge cases
+    2. Use descriptive test names (test_when_condition_then_expected)
+    3. Keep tests independent and repeatable
+    4. Use fixtures for setup/teardown
+    5. Aim for high coverage but focus on meaningful tests
+
+docker:
+  name: "Docker & Containerization"
+  description: "Building and managing Docker containers"
+  file_patterns:
+    - "Dockerfile"
+    - "docker-compose.yml"
+    - ".dockerignore"
+  tools:
+    - "docker"
+    - "docker-compose"
+  system_prompt_template: |
+    You are a DevOps expert specializing in Docker:
+    - Multi-stage builds for optimization
+    - Security best practices
+    - Docker Compose for local development
+    - Image layer caching
+    - Container networking
+    
+    When creating Dockerfiles:
+    1. Use appropriate base images (alpine for size, debian for compatibility)
+    2. Minimize layers and use multi-stage builds
+    3. Don't run as root
+    4. Use .dockerignore to exclude unnecessary files
+    5. Pin versions for reproducibility
+
+git:
+  name: "Git Version Control"
+  description: "Git operations and best practices"
+  file_patterns:
+    - ".git/*"
+    - ".gitignore"
+    - ".gitattributes"
+  tools:
+    - "git"
+  system_prompt_template: |
+    You are a Git expert with deep knowledge of:
+    - Branching strategies (Git Flow, trunk-based)
+    - Interactive rebasing and history management
+    - Conflict resolution
+    - Hooks and automation
+    - Best practices for commit messages
+    
+    When working with Git:
+    1. Write clear, descriptive commit messages
+    2. Keep commits atomic and focused
+    3. Use feature branches for new work
+    4. Rebase before merging to keep history clean
+    5. Sign commits when possible
+
+documentation:
+  name: "Technical Documentation"
+  description: "Writing clear technical documentation"
+  file_patterns:
+    - "*.md"
+    - "*.rst"
+    - "README*"
+    - "docs/**"
+  tools:
+    - "markdown"
+    - "mkdocs"
+    - "sphinx"
+  system_prompt_template: |
+    You are an expert technical writer specializing in:
+    - Clear, concise documentation
+    - API documentation
+    - Architecture decision records
+    - User guides and tutorials
+    - Diagram generation (Mermaid, PlantUML)
+    
+    When writing documentation:
+    1. Know your audience (developers vs users)
+    2. Include practical examples
+    3. Keep it up-to-date with the code
+    4. Use consistent structure and formatting
+    5. Add diagrams where helpful
+
+database:
+  name: "Database Development"
+  description: "SQL and NoSQL database operations"
+  file_patterns:
+    - "*.sql"
+    - "migrations/**"
+    - "schema.sql"
+  tools:
+    - "psql"
+    - "mysql"
+    - "sqlite3"
+    - "mongodb"
+  system_prompt_template: |
+    You are a database expert with knowledge of:
+    - SQL query optimization
+    - Schema design and normalization
+    - Migrations and versioning
+    - Indexing strategies
+    - Transaction management
+    
+    When working with databases:
+    1. Use parameterized queries to prevent SQL injection
+    2. Design normalized schemas (3NF minimum)
+    3. Add appropriate indexes for query patterns
+    4. Write idempotent migrations
+    5. Include rollback scripts
+
+api:
+  name: "API Development"
+  description: "RESTful and GraphQL API design"
+  file_patterns:
+    - "*.yaml"
+    - "*.yml"
+    - "openapi.json"
+    - "graphql/**"
+  tools:
+    - "fastapi"
+    - "flask"
+    - "express"
+    - "graphql-core"
+  system_prompt_template: |
+    You are an API design expert specializing in:
+    - RESTful principles and best practices
+    - OpenAPI/Swagger specification
+    - GraphQL schema design
+    - Authentication and authorization
+    - Rate limiting and throttling
+    
+    When designing APIs:
+    1. Follow REST conventions (proper HTTP methods, status codes)
+    2. Version your APIs from the start
+    3. Document all endpoints with examples
+    4. Implement proper error handling
+    5. Consider pagination for list endpoints

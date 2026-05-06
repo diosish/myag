@@ -2,12 +2,12 @@
 
 llm:
   # Default model to use
-  default_model: "gpt-4"
+  default_model: "${ADEV_DEFAULT_MODEL:-gpt-4}"
   
   # OpenAI settings
   openai:
-    api_key: "${OPENAI_API_KEY}"  # Use environment variable
-    base_url: "https://api.openai.com/v1"
+    api_key: "${OPENAI_API_KEY:-}"  # Set via environment variable
+    base_url: "${OPENAI_BASE_URL:-https://api.openai.com/v1}"
     models:
       - name: "gpt-4"
         max_tokens: 8192
@@ -20,13 +20,17 @@ llm:
   
   # Ollama settings (local)
   ollama:
-    base_url: "http://localhost:11434"
+    base_url: "${OLLAMA_BASE_URL:-http://localhost:11434}"
     models:
       - name: "llama3"
         max_tokens: 8192
         cost_per_1k_input: 0.0
         cost_per_1k_output: 0.0
       - name: "mistral"
+        max_tokens: 8192
+        cost_per_1k_input: 0.0
+        cost_per_1k_output: 0.0
+      - name: "codellama"
         max_tokens: 8192
         cost_per_1k_input: 0.0
         cost_per_1k_output: 0.0
@@ -94,8 +98,17 @@ orchestrator:
 
 # Logging settings
 logging:
-  level: "INFO"
+  level: "${ADEV_LOG_LEVEL:-INFO}"
   file: "./logs/adev.log"
   format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  # Mask secrets in logs (RECOMMENDED for production)
+  mask_secrets: true
   # Log sensitive data (be careful!)
   log_sensitive: false
+
+# Security settings (P3)
+security:
+  # Mask API keys and secrets in logs
+  mask_secrets: true
+  # Local-only mode (no external API calls)
+  local_only: false

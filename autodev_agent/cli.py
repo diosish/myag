@@ -38,6 +38,12 @@ def main():
     config_parser.add_argument('--show', action='store_true', help='Show current config')
     config_parser.add_argument('--init', action='store_true', help='Initialize config file')
     
+    # Web UI command
+    web_parser = subparsers.add_parser('web', help='Start Web UI')
+    web_parser.add_argument('--host', type=str, default='0.0.0.0', help='Host to bind to')
+    web_parser.add_argument('--port', type=int, default=8000, help='Port to bind to')
+    web_parser.add_argument('--reload', action='store_true', help='Enable auto-reload')
+    
     # Parse arguments
     args = parser.parse_args()
     
@@ -54,6 +60,8 @@ def main():
         return cmd_cache(args)
     elif args.command == 'config':
         return cmd_config(args)
+    elif args.command == 'web':
+        return cmd_web(args)
     else:
         parser.print_help()
         return 1
@@ -226,6 +234,40 @@ def cmd_config(args):
         
     except Exception as e:
         print(f"❌ Error: {str(e)}")
+        return 1
+
+
+def cmd_web(args):
+    """Start the Web UI."""
+    try:
+        import uvicorn
+        from .web.api import app
+        
+        print(f"🚀 Starting AutoDevAgent Web UI...")
+        print(f"   Host: {args.host}")
+        print(f"   Port: {args.port}")
+        print(f"   Reload: {args.reload}")
+        print(f"\n   Open http://localhost:{args.port} in your browser\n")
+        print("="*60)
+        
+        uvicorn.run(
+            app,
+            host=args.host,
+            port=args.port,
+            reload=args.reload,
+            log_level="info"
+        )
+        
+        return 0
+        
+    except ImportError:
+        print("❌ Web dependencies not installed.")
+        print("   Install with: pip install 'autodev-agent[web]'")
+        return 1
+    except Exception as e:
+        print(f"❌ Error starting web UI: {str(e)}")
+        import traceback
+        traceback.print_exc()
         return 1
 
 
