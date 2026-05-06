@@ -1,0 +1,38 @@
+Metadata-Version: 2.4
+Name: autodev-agent
+Version: 0.1.0
+Summary: Autonomous Development Agent - AI-powered task orchestration system
+Author-email: AutoDev Team <team@autodev.local>
+License: MIT
+Project-URL: Homepage, https://github.com/autodev/autodev-agent
+Project-URL: Documentation, https://github.com/autodev/autodev-agent#readme
+Project-URL: Repository, https://github.com/autodev/autodev-agent.git
+Project-URL: Issues, https://github.com/autodev/autodev-agent/issues
+Keywords: ai,automation,llm,orchestration,development,agents
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: pydantic>=2.0
+Requires-Dist: pydantic-settings>=2.0
+Requires-Dist: pyyaml>=6.0
+Requires-Dist: requests>=2.31.0
+Provides-Extra: openai
+Requires-Dist: openai>=1.0; extra == "openai"
+Requires-Dist: tiktoken>=0.5; extra == "openai"
+Provides-Extra: dev
+Requires-Dist: pytest>=7.4; extra == "dev"
+Requires-Dist: pytest-asyncio>=0.21; extra == "dev"
+Requires-Dist: pytest-cov>=4.1; extra == "dev"
+Requires-Dist: black>=23.0; extra == "dev"
+Requires-Dist: ruff>=0.1.0; extra == "dev"
+Requires-Dist: mypy>=1.5; extra == "dev"
+Provides-Extra: all
+Requires-Dist: autodev-agent[dev,openai]; extra == "all"
+
+# myag

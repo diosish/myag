@@ -1,0 +1,114 @@
+# AutoDevAgent Configuration
+
+llm:
+  # Default model to use
+  default_model: "${ADEV_DEFAULT_MODEL:-gpt-4}"
+  
+  # OpenAI settings
+  openai:
+    api_key: "${OPENAI_API_KEY:-}"  # Set via environment variable
+    base_url: "${OPENAI_BASE_URL:-https://api.openai.com/v1}"
+    models:
+      - name: "gpt-4"
+        max_tokens: 8192
+        cost_per_1k_input: 0.03
+        cost_per_1k_output: 0.06
+      - name: "gpt-3.5-turbo"
+        max_tokens: 4096
+        cost_per_1k_input: 0.0015
+        cost_per_1k_output: 0.002
+  
+  # Ollama settings (local)
+  ollama:
+    base_url: "${OLLAMA_BASE_URL:-http://localhost:11434}"
+    models:
+      - name: "llama3"
+        max_tokens: 8192
+        cost_per_1k_input: 0.0
+        cost_per_1k_output: 0.0
+      - name: "mistral"
+        max_tokens: 8192
+        cost_per_1k_input: 0.0
+        cost_per_1k_output: 0.0
+      - name: "codellama"
+        max_tokens: 8192
+        cost_per_1k_input: 0.0
+        cost_per_1k_output: 0.0
+
+# Cost limits and routing
+cost:
+  # Maximum cost per task (USD)
+  max_cost_per_task: 5.0
+  # Maximum cost per day (USD)
+  max_daily_cost: 20.0
+  # Routing strategy: budget | balanced | premium
+  routing_strategy: "balanced"
+  # Fallback to local if API fails
+  fallback_to_local: true
+
+# Token limits
+tokens:
+  # Maximum tokens per request
+  max_tokens_per_request: 4096
+  # Context window reservation for system prompts
+  context_reservation: 1000
+  # Warning threshold (percentage of max)
+  warning_threshold: 0.8
+
+# Cache settings
+cache:
+  enabled: true
+  # Cache directory
+  directory: "./data/cache"
+  # Enable semantic deduplication
+  semantic_search: false
+  # TTL in seconds (0 = no expiry)
+  ttl: 86400
+  # Max cache size in MB
+  max_size_mb: 1000
+
+# Project sync settings
+sync:
+  # Project root directory
+  project_root: "."
+  # Git integration
+  git:
+    enabled: true
+    auto_commit: false
+    commit_prefix: "[AutoDev]"
+  # Obsidian graph settings
+  obsidian:
+    enabled: true
+    graph_directory: "./data/graph"
+    decisions_directory: "./data/decisions"
+    auto_link: true
+
+# Orchestrator settings
+orchestrator:
+  # Maximum retry attempts
+  max_retries: 3
+  # Retry delay in seconds
+  retry_delay: 5
+  # Parallel execution (for P2)
+  parallel: false
+  # Complexity level (1-5)
+  default_complexity: 3
+  # Mode: fast-track | standard | enterprise
+  mode: "standard"
+
+# Logging settings
+logging:
+  level: "${ADEV_LOG_LEVEL:-INFO}"
+  file: "./logs/adev.log"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  # Mask secrets in logs (RECOMMENDED for production)
+  mask_secrets: true
+  # Log sensitive data (be careful!)
+  log_sensitive: false
+
+# Security settings (P3)
+security:
+  # Mask API keys and secrets in logs
+  mask_secrets: true
+  # Local-only mode (no external API calls)
+  local_only: false
